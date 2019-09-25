@@ -22,9 +22,9 @@ class IndexController extends Controller
         $user = $this->request->input('user', 'Hyperf');
         $method = $this->request->getMethod();
 
-        return $response->json([
+        return response()->json([
             'method' => $method,
-            'message' => "Hello 22{$user}.6666",
+            'message' => "Hello 22{$user}.66266",
         ]);
     }
 }
