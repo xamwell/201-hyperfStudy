@@ -83,9 +83,9 @@ if (!function_exists('stdLog')) {
  * 文件日志
  */
 if (!function_exists('logger')) {
-    function logger()
+    function logger(string $name = 'default')
     {
-        return container()->get(LoggerFactory::class)->make();
+        return container()->get(LoggerFactory::class)->get($name);
     }
 }
 
