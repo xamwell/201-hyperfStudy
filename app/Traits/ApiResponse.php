@@ -26,6 +26,6 @@ trait ApiResponse {
      */
     public function response(?array $data, string $message = null, int $code = 200)
     {
-        return response()->json(compact('data', 'code', 'message'));
+        return response()->json(compact('data', 'message', 'code'));
     }
 }
