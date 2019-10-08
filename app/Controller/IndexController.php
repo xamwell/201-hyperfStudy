@@ -12,24 +12,43 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use App\Traits\ApiResponse;
-use Psr\Container\ContainerInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
+use \Phper666\JwtAuth\Jwt;
+use App\Model\User;
 
 class IndexController extends Controller
 {
     use ApiResponse;
 
-    public function index(ResponseInterface $response)
+    public function index(ResponseInterface $response,Jwt $jwt)
     {
+        $userData = [
+            'uid' => 1,
+            'username' => 'xx',
+            'prv' => sha1(User::class)
+        ];
+        $token = (string)$jwt->getToken($userData);
+
+//        var_dump($jwt->getParserData());
+//        var_dump($jwt->validateToken($token));
+//        var_dump(Coroutine::inCoroutine());
+//        var_dump(Coroutine::id());
+//
+        foreach ([1,2,3,4,5,6,7,8,9,10] as $item) {
+            var_dump($item);
+//            var_dump(Hyperf\Utils\Coroutine\Coroutine::inCoroutine());
+//            var_dump(Hyperf\Utils\Coroutine\Coroutine::id());
+        }
         $user = $this->request->input('user', 'Hyperf');
         $method = $this->request->getMethod();
         logger()->info('test',[
             'method' => $method,
             'message' => "Hello {$user}.12312312312312",
         ]);
-        return $this->error('fail',403);
+//        return $this->error('fail',403);
         return $this->response([
-            'method' => $method,
+            '$token' => $token,
+            'msg' => $jwt->getParserData(),
             'message' => "Hello {$user}.12312312312312",
         ],'success');
     }
